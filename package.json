@@ -2,10 +2,33 @@
   "name": "turborepo-basic-shared",
   "version": "0.0.0",
   "private": true,
-  "workspaces": [
-    "apps/*",
-    "packages/*"
-  ],
+  "workspaces": {
+    "packages": [
+      "apps/*",
+      "packages/*",
+      "services/*"
+    ],
+    "nohoist": [
+      "**/@trpc/**/*",
+      "**/@trpc/**/*",
+      "**/react-query",
+      "**/react-native",
+      "**/react-native/**",
+      "**/@react-native-*",
+      "**/@react-native-*/**",
+      "**/react-native-*",
+      "**/react-native-*/**",
+      "**/*react-navigation/**",
+      "**/expo",
+      "**/expo/**",
+      "**/@expo",
+      "**/@expo/**",
+      "**/expo-*",
+      "**/expo-*/**",
+      "**/metro-*",
+      "**/metro-*/**"
+    ]
+  },
   "scripts": {
     "build": "turbo run build",
     "dev": "turbo run dev --parallel",
@@ -38,5 +61,8 @@
   "engines": {
     "npm": ">=7.0.0",
     "node": ">=14.0.0"
+  },
+  "resolutions": {
+    "react-devtools-core": "4.12.4"
   }
 }

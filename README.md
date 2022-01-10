@@ -1,16 +1,14 @@
-# Turborepo starter with NPM
+# Turborepo starter with Expo and tRPC
 
-This is an official starter turborepo.
+This is a minimal boilerplate to get started with Expo and tRPC in Turborepo.
 
 ## What's inside?
 
-This turborepo uses [NPM](https://www.npmjs.com/) as a package manager. It includes the following packages/apps:
+This turborepo uses [Yarn](https://yarnpkg.com/) as a package manager. It includes the following packages/apps:
 
 ### Apps and Packages
-
-- `docs`: a [Next.js](https://nextjs.org) app
-- `web`: another [Next.js](https://nextjs.org) app
-- `ui`: a stub React component library shared by both `web` and `docs` applications
+- `apps/mobile`: a [`react-native`](https://reactnative.dev/) app using [`expo`](https://expo.dev/)
+- `services/backend`: a [`trpc`](https://trpc.io/) backend service
 - `config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
 - `tsconfig`: `tsconfig.json`s used throughout the monorepo
 
@@ -27,7 +25,7 @@ This turborepo has some additional tools already setup for you:
 
 ## Setup
 
-This repository is used in the `npx create-turbo@latest` command, and selected when choosing which package manager you wish to use with your monorepo (NPM).
+The Expo app depends on a few things just like any other native app. Please make sure you have all the prerequisits for running an Expo app: https://docs.expo.dev/
 
 ### Build
 
@@ -35,16 +33,23 @@ To build all apps and packages, run the following command:
 
 ```
 cd my-turborepo
-npm run build
+yarn run build
 ```
 
 ### Develop
 
-To develop all apps and packages, run the following command:
-
+To start the projects development servers just run
 ```
-cd my-turborepo
-npm run dev
+cd turbo-expo-repo
+yarn dev
+```
+
+Then you can run the app in another terminal tab
+```
+cd turbo-expo-repo
+// pick one:
+yarn ios
+yarn android
 ```
 
 ### Remote Caching
