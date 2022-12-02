@@ -1,36 +1,41 @@
+import { useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
-import React, { useState } from 'react';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
-
-import useCachedResources from './hooks/useCachedResources';
-import { Navigation } from './pages';
-
-import { trpc } from './backend/useQuery';
-import { QueryClient, QueryClientProvider } from 'react-query'
-
+import { StyleSheet, Text, View } from 'react-native';
+import { Button } from 'ui'
+import { trpc } from './client';
+import { QueryClientProvider, QueryClient } from '@tanstack/react-query'
+import {httpBatchLink} from '@trpc/react-query'
+import { Welcome } from './Welcome';
 
 export default function App() {
-  const isLoadingComplete = useCachedResources();
-
   const [queryClient] = useState(() => new QueryClient());
   const [trpcClient] = useState(() =>
     trpc.createClient({
-      url: 'http://localhost:2021/trpc',
+      // change the ip address to whatever address the Metro server is running on
+      // if you're using a Simulator 'localhost' should work fine
+      links: [httpBatchLink({ url: 'http://192.168.1.2:5000/trpc' })],
     }),
   );
 
-  if (!isLoadingComplete) {
-    return null;
-  } else {
-    return (
-      <trpc.Provider client={trpcClient} queryClient={queryClient}>
-        <QueryClientProvider client={queryClient}>
-          <SafeAreaProvider>
-            <Navigation />
-            <StatusBar />
-          </SafeAreaProvider>
-        </QueryClientProvider>
-      </trpc.Provider>
-    );
-  }
+  return (
+    <trpc.Provider client={trpcClient} queryClient={queryClient}>
+      <QueryClientProvider client={queryClient}>
+        <View style={styles.container}>
+          <Text>Open up App.tsx to start working on your app!</Text>
+          <Welcome />
+          <Button />
+          <StatusBar style="auto" />
+        </View>
+     </QueryClientProvider>
+    </trpc.Provider>
+  );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+});

@@ -1,10 +1,5 @@
-import * as React from "react";
-import { Button as NativeButton } from 'react-native'
+import { Pressable, Text } from 'react-native'
 
-interface ButtonProps {
-  onPress: () => void;
-  title: string;
-}
-export const Button = ({ title, onPress }: ButtonProps) => {
-  return <NativeButton title={title} onPress={onPress} />
+export const Button = () => {
+  return <Pressable><Text>Boop</Text></Pressable>;
 };

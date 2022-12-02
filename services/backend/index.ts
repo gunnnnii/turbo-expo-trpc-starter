@@ -1,40 +1,25 @@
-import * as trcp from '@trpc/server'
+import { inferAsyncReturnType, initTRPC } from '@trpc/server';
 import * as trpcExpress from '@trpc/server/adapters/express';
 import express from 'express';
+import { appRouter } from './server';
+// created for each request
+const createContext = ({
+  req,
+  res,
+}: trpcExpress.CreateExpressContextOptions) => ({}); // no context
+type Context = inferAsyncReturnType<typeof createContext>;
+const t = initTRPC.context<Context>().create();
 
-const appRouter = trcp
-    .router()
-    .query('hello', {
-        resolve(ctx) {
-            return 'hello'
-        }
-    });
+const app = express();
 
-export type AppRouter = typeof appRouter;
+app.use(
+  '/trpc',
+  trpcExpress.createExpressMiddleware({
+    router: appRouter,
+    createContext,
+    onError: console.log
+  }),
+);
+app.listen(5000, () => console.log('up and running on', 'localhost:5000'));
 
-async function main() {
-    // express implementation
-    const app = express();
-  
-    app.use((req, _res, next) => {
-      // request logger
-      console.log('⬅️ ', req.method, req.path, req.body ?? req.query);
-  
-      next();
-    });
-  
-    app.use(
-      '/trpc',
-      trpcExpress.createExpressMiddleware({
-        router: appRouter,
-      }),
-    );
-    
-    app.get('/', (_req, res) => res.send('hello'));
-    app.listen(2021, () => {
-      console.log('listening on port 2021');
-    });
-  }
-  
-  main();
-  
+export type { AppRouter } from './server'

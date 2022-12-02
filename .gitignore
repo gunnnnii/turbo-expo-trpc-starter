@@ -5,13 +5,11 @@ node_modules
 .pnp
 .pnp.js
 
+# build outputs
+dist
+
 # testing
 coverage
-
-# next.js
-.next/
-out/
-build
 
 # misc
 .DS_Store
@@ -31,3 +29,4 @@ yarn-error.log*
 
 # turbo
 .turbo
+

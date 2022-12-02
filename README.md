@@ -8,7 +8,7 @@ This turborepo uses [Yarn](https://yarnpkg.com/) as a package manager. It includ
 
 ### Apps and Packages
 - `apps/mobile`: a [`react-native`](https://reactnative.dev/) app using [`expo`](https://expo.dev/)
-- `services/backend`: a [`trpc`](https://trpc.io/) backend service
+- `services/backend`: an express backend service which sets up the [`trpc`](https://trpc.io/) server instance
 - `config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
 - `tsconfig`: `tsconfig.json`s used throughout the monorepo
 
@@ -37,21 +37,26 @@ yarn run build
 ```
 
 ### Develop
+I recommend starting Expo and other backend services in separate terminal window.
 
-To start the projects development servers just run
+Start the backend server by running the `dev` script in the root folder
+
 ```
-cd turbo-expo-repo
 yarn dev
 ```
 
-Then you can run the app in another terminal tab
+In the other window, navigate to the `mobile` folder and start Expo there.
 ```
-cd turbo-expo-repo
-// pick one:
+cd apps/mobile
+
+# pick one
+yarn start
 yarn ios
 yarn android
 ```
 
+If you explicitly want Expo to be started in the same window as the rest of your servers, just add a `dev` script into `apps/mobile/package.json`.
+You'll lose some convenient things like the scannable QR code doing it this way.
 ### Remote Caching
 
 Turborepo can use a technique known as [Remote Caching (Beta)](https://turborepo.org/docs/features/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
