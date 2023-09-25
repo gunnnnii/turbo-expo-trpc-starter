@@ -1,11 +1,11 @@
-import { useState } from 'react';
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
-import { Button } from 'ui'
-import { trpc } from './client';
-import { QueryClientProvider, QueryClient } from '@tanstack/react-query'
-import {httpBatchLink} from '@trpc/react-query'
-import { Welcome } from './Welcome';
+import { useState } from "react";
+import { StatusBar } from "expo-status-bar";
+import { StyleSheet, Text, View } from "react-native";
+import { Button } from "ui";
+import { trpc } from "./client";
+import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
+import { httpBatchLink } from "@trpc/react-query";
+import { Welcome } from "./Welcome";
 
 export default function App() {
   const [queryClient] = useState(() => new QueryClient());
@@ -13,8 +13,8 @@ export default function App() {
     trpc.createClient({
       // change the ip address to whatever address the Metro server is running on
       // if you're using a Simulator 'localhost' should work fine
-      links: [httpBatchLink({ url: 'http://192.168.1.2:5000/trpc' })],
-    }),
+      links: [httpBatchLink({ url: "http://192.168.1.2:5000/trpc" })],
+    })
   );
 
   return (
@@ -26,7 +26,7 @@ export default function App() {
           <Button />
           <StatusBar style="auto" />
         </View>
-     </QueryClientProvider>
+      </QueryClientProvider>
     </trpc.Provider>
   );
 }
@@ -34,8 +34,8 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
   },
 });

@@ -30,3 +30,5 @@ yarn-error.log*
 # turbo
 .turbo
 
+# env
+.env
