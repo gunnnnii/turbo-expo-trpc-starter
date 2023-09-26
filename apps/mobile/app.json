@@ -14,9 +14,7 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true
     },
@@ -26,13 +24,11 @@
         "backgroundColor": "#FFFFFF"
       }
     },
+    "plugins": ["expo-router"],
     "web": {
+      "bundler": "metro",
       "favicon": "./assets/favicon.png"
     },
-    "extra": {
-      "eas": {
-        "projectId": "430d0e55-6eaf-4194-ac6c-4f72955b08b9"
-      }
-    }
+    "scheme": "mobile"
   }
 }
